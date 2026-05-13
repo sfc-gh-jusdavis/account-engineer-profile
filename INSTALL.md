@@ -90,3 +90,20 @@ Or simply re-create the profile by repeating the install steps.
 
 1. Open the profile picker -> **Delete** the Account Engineer profile
 2. Switch to your prior profile (or default)
+
+## Forking This Profile
+
+If you fork this repo for team-specific or personal customization, update the URLs in your `profile.json` to point at your fork:
+
+```json
+"skillRepos": [
+  "https://github.com/<your-handle-or-org>/account-engineer-profile/tree/main/skills"
+],
+"commandRepos": [
+  "https://github.com/<your-handle-or-org>/account-engineer-profile/tree/main/commands"
+]
+```
+
+The same applies to the System Prompt URL in the Form view.
+
+The canonical repo at `github.com/sfc-gh-jusdavis/account-engineer-profile` will continue to exist; your fork is yours to evolve. If you make improvements that generalize, consider opening a PR upstream.

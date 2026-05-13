@@ -17,8 +17,10 @@ This repository is **public**. Every PR is reviewed against [docs/public-repo-po
 Before opening a PR, run:
 
 ```bash
-# From the repo root
-grep -ri 'JDAVIS_AWS1\|JUSDAVIS\|j\.davis\|atlassian\.net\|snowflake\.slack\.com\|quip\.com' . \
+# From the repo root.
+# Replace <YOUR_CONNECTION_NAME> and <YOUR_USERNAME> with the literal values
+# matching your own setup (these come from /ace-setup or your profile envVars).
+grep -ri '<YOUR_CONNECTION_NAME>\|<YOUR_USERNAME>\|atlassian\.net\|snowflake\.slack\.com\|quip\.com' . \
   --exclude-dir=.git
 # Should produce zero hits.
 ```

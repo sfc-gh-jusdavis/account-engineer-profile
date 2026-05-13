@@ -39,7 +39,9 @@ This repository is **public**. Anyone on the internet can read every commit fore
 
 ### Personal connection / identity values
 
-- `JDAVIS_AWS1`, `JUSDAVIS`, `j.davis`, `j_davis` — replace with `${ACE_DEFAULT_CONN}` and `${ACE_USER_HANDLE}` placeholders
+- Your specific connection name (whatever you set in `ACE_DEFAULT_CONN`) — in skill code, use the literal `${ACE_DEFAULT_CONN}` placeholder
+- Your specific Snowflake username (whatever you set in `ACE_USER_HANDLE`) — in skill code, use the literal `${ACE_USER_HANDLE}` placeholder
+- Your specific email — never hardcode; document as user-configured in the skill
 - Any individual user's connection-config values
 - Any individual user's PAT
 - Any individual user's API tokens
@@ -53,8 +55,8 @@ This repository is **public**. Anyone on the internet can read every commit fore
 
 ### Project-specific content
 
-- BookManager-specific paths, schemas, table names
-- Other internal-project specifics that don't generalize
+- Internal-project-specific paths, schemas, table names that don't generalize
+- Other internal-project specifics tied to one engagement
 
 ---
 
@@ -79,8 +81,13 @@ Before pushing any branch, run these greps from the repo root:
 
 ```bash
 # Personal handles / connection leaks
-grep -ri 'JDAVIS_AWS1\|JUSDAVIS\|j\.davis\|j_davis' . --exclude-dir=.git
-grep -ri 'BookManager\|bkmng' . --exclude-dir=.git
+# Replace <YOUR_CONNECTION_NAME> and <YOUR_USERNAME> with values matching your
+# own setup (these come from /ace-setup or your profile envVars).
+grep -ri '<YOUR_CONNECTION_NAME>\|<YOUR_USERNAME>' . --exclude-dir=.git
+
+# Project codename leaks
+# Replace <YOUR_PROJECT_NAME> with any internal project codenames you work on.
+grep -ri '<YOUR_PROJECT_NAME>' . --exclude-dir=.git
 
 # Internal Snowflake URLs
 grep -ri 'atlassian\.net\|snowflake\.slack\.com\|quip\.com' . --exclude-dir=.git

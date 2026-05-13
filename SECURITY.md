@@ -22,7 +22,9 @@ Before pushing, run:
 
 ```bash
 # Personal handle / connection leaks
-grep -ri 'JDAVIS_AWS1\|JUSDAVIS\|j\.davis\|j_davis' . --exclude-dir=.git
+# Replace <YOUR_CONNECTION_NAME> and <YOUR_USERNAME> with the literal values you
+# use locally (from /ace-setup or your profile envVars).
+grep -ri '<YOUR_CONNECTION_NAME>\|<YOUR_USERNAME>' . --exclude-dir=.git
 
 # Internal URL leaks
 grep -ri 'atlassian\.net\|snowflake\.slack\.com\|quip\.com\|^go/' . --exclude-dir=.git

@@ -111,9 +111,9 @@ The asset-creation-discipline skill applies BOTH layers to creation tasks. The s
 
 ## Out of Scope (For This Profile)
 
-- BookManager-specific tooling — stays in the BookManager repo
+- Project-specific tooling — stays in the relevant project's own repo
 - Personal slack/notification skills — stay local
-- Curriculum / study skills — stay local
+- Personal curriculum / study skills — stay local
 - Any single-engagement utilities — stay local
 
 The profile is the **role-shaped baseline**. Personal customization layers on top.
