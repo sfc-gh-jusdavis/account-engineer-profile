@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<style>{{ css }}</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="cover-top">
+    <div class="brand-mark">
+      <img class="snowflake-mark" src="{{ logo_data_url }}" alt="Snowflake"/>
+      <span>SNOWFLAKE</span>
+    </div>
+    <div class="audience-badge" style="--badge-color: {{ audience_color }};">{{ audience_label }}</div>
+  </div>
+  <div class="accent-bar"></div>
+  <h1 class="title">{{ title }}</h1>
+  <div class="subtitle">{{ subtitle }}</div>
+  <div class="meta">
+    <div><div class="k">Customer</div><div class="v">{{ customer }}</div></div>
+    <div><div class="k">Author</div><div class="v">{{ author }}</div></div>
+    <div><div class="k">Date</div><div class="v">{{ date }}</div></div>
+    <div><div class="k">Classification</div><div class="v">{{ classification }}</div></div>
+  </div>
+</section>
+
+<div class="running-header"><span class="accent"></span>{{ title }}</div>
+
+<section class="content">
+{{ body }}
+</section>
+
+{% if references %}
+<section class="references">
+  <h1>References</h1>
+  <p class="ref-intro">Each Snowflake function, command, view, tool, and feature referenced in this document was verified against the Snowflake documentation. Links are provided below for further reading.</p>
+  {% for cat, items in references %}
+  <h2>{{ cat }}</h2>
+  <ul>
+    {% for r in items %}
+    <li>
+      <a href="{{ r.url }}">{{ r.label }}</a>
+      <div class="ref-url">{{ r.url }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</section>
+{% endif %}
+
+</body>
+</html>
