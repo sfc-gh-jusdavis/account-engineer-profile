@@ -34,6 +34,10 @@ Last updated: <ISO date, e.g. 2026-05-13>
 - Handle: <github_handle value, or "not set">
 - Default project org: <github_org value, or "not set">
 
+## Paths
+- Work email: <user_email value>
+- Google Drive base: <gdrive_base value>
+
 ## Notes
 <free-form ACE notes; preserved across re-runs of /ace-setup>
 ```
@@ -52,6 +56,8 @@ Last updated: <ISO date, e.g. 2026-05-13>
 | Identity | Display name | "Author" field on PDFs and decks | snowflake-pdf, pptx, briefing skills |
 | GitHub | Handle | Owner field for new repos, fork URL construction | Project-repo skills, fork workflows |
 | GitHub | Default project org | Default org for new repos | Project-repo skills |
+| Paths | Work email | Google Drive folder name embeds this; PDF metadata | gdrive-desktop, account-context, account-handoff, meeting-prep, salesforce-account-intel, use-case-data, use-case-update, account-team |
+| Paths | Google Drive base | Anchor for per-customer engagement folders and personal logs | gdrive-desktop, account-context, account-handoff, account-status, meeting-prep, external-account-context, salesforce-account-intel, use-case-data, use-case-update, activity-log, todo-log |
 
 ---
 
