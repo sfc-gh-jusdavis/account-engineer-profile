@@ -1,0 +1,20 @@
+{
+  "name": "Account Engineer",
+  "description": "Cortex Code profile for Snowflake Account Engineers. Bundles asset-creation discipline, account-workflow skills, and an ACE-tuned system prompt.",
+  "ownerTeam": "Account Engineering",
+  "version": "0.1.0",
+  "skillRepos": [
+    "https://github.com/sfc-gh-jusdavis/account-engineer-profile/tree/main/skills"
+  ],
+  "mcpServers": {},
+  "commandRepos": [
+    "https://github.com/sfc-gh-jusdavis/account-engineer-profile/tree/main/commands"
+  ],
+  "hooks": {},
+  "envVars": {
+    "ACE_DEFAULT_CONN": "<your-snowflake-connection-name>",
+    "ACE_USER_HANDLE": "<your-snowflake-username>"
+  },
+  "settingsOverrides": {},
+  "localModified": false
+}
