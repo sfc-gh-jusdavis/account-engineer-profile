@@ -2,11 +2,12 @@
 
 This directory contains the CCD skills the Account Engineer profile registers.
 
-## v0.1.0 Skills
+## v0.1.1 Skills
 
 | Skill | Purpose |
 |---|---|
-| `asset-creation-discipline/` | Apply rigorous discipline to creation tasks (PDFs, notebooks, scripts, decks, research). Active in v0.1.0 — see [asset-creation-discipline/SKILL.md](asset-creation-discipline/SKILL.md). |
+| `ace-setup/` | First-time and recurring setup workflow. Captures per-ACE config (Snowflake connection, username, demo account, display name, GitHub handle and org) via 8 questions, auto-detecting defaults from `gh` and `snow` CLIs. Persists to `/memories/ace-setup.md` and outputs the CCD profile envVar JSON. See [ace-setup/SKILL.md](ace-setup/SKILL.md). |
+| `asset-creation-discipline/` | Apply rigorous discipline to creation tasks (PDFs, notebooks, scripts, decks, research). Active since v0.1.0 — see [asset-creation-discipline/SKILL.md](asset-creation-discipline/SKILL.md). |
 
 ## Migration Roadmap
 

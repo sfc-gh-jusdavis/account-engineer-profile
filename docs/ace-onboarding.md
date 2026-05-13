@@ -15,7 +15,24 @@ Before starting:
 
 Open the profile picker. Select **Account Engineer**. The system prompt loads on your next chat.
 
-## Step 2: Read the Discipline Layers
+## Step 2: Run First-Time Setup
+
+In your first chat under the new profile, type:
+
+> /ace-setup
+
+The skill walks you through 8 questions and produces:
+
+- A populated `/memories/ace-setup.md` file (your demo account, display name, GitHub identity)
+- A JSON snippet to paste into your CCD profile envVars (your `ACE_DEFAULT_CONN` and `ACE_USER_HANDLE` values)
+
+Where it can, the skill auto-detects sensible defaults from `snow connection list`, `gh api user`, and your OS user info — you mostly confirm rather than type.
+
+After running setup, paste the printed envVar JSON into the CCD profile picker (Edit Account Engineer -> JSON tab -> set `envVars`). Save.
+
+Re-run `/ace-setup` anytime your demo account changes, you switch teams, or you want to update your display name. The skill preserves any free-form notes across re-runs.
+
+## Step 4: Read the Discipline Layers
 
 Spend 10 minutes on these two documents — they govern how the agent behaves when you ask it to create things:
 
@@ -24,7 +41,7 @@ Spend 10 minutes on these two documents — they govern how the agent behaves wh
 
 You don't need to memorize them. You need to recognize when the agent is applying them and when it isn't.
 
-## Step 3: Read the Profile's Specific Defaults
+## Step 5: Read the Profile's Specific Defaults
 
 Skim [system-prompt.md](../system-prompt.md). The key defaults to internalize:
 
@@ -33,7 +50,7 @@ Skim [system-prompt.md](../system-prompt.md). The key defaults to internalize:
 - `SNOWADHOC` is SELECT-only; the agent will refuse DDL/DML on it
 - Salesforce is read-only by default
 
-## Step 4: Try the Asset Creation Discipline
+## Step 6: Try the Asset Creation Discipline
 
 In a fresh chat, try:
 
@@ -48,11 +65,11 @@ Expected agent behavior:
 
 If the agent jumps straight to writing cells, the skill is not active — open an issue.
 
-## Step 5: Try a Customer-Facing PDF Workflow (Phase 2 once snowflake-pdf is migrated)
+## Step 7: Try a Customer-Facing PDF Workflow (Phase 2 once snowflake-pdf is migrated)
 
 In v0.1.0 the snowflake-pdf skill is not yet in the profile. Continue using your local installation. Phase 2 will move it here.
 
-## Step 6: Set Up Your Personal Layer
+## Step 8: Set Up Your Personal Layer
 
 Things that DO NOT belong in this profile but you'll want locally:
 
@@ -63,7 +80,7 @@ Things that DO NOT belong in this profile but you'll want locally:
 
 Keep these in your home dir or in repos you own. The profile is the role baseline.
 
-## Step 7: Provide Feedback
+## Step 9: Provide Feedback
 
 This profile is at v0.1.0 and the v1 audience is just the maintainer. If you're a second-or-later ACE installing it:
 
