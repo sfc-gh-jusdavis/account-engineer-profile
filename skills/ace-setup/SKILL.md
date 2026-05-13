@@ -1,6 +1,6 @@
 ---
 name: ace-setup
-description: First-time and recurring setup workflow for the Account Engineer profile. Captures per-ACE config (Snowflake connection, username, demo account details, display name, GitHub handle and org) via 8 questions, auto-detecting sensible defaults from `gh` and `snow` CLIs. Persists answers to /memories/ace-setup.md and outputs the CCD profile envVar JSON snippet for paste-back. Triggers: ace-setup, /ace-setup, run setup, run profile setup, configure profile, first-time setup, set up account engineer, update my setup, configure ace-setup.
+description: First-time and recurring setup workflow for the Account Engineer profile. Captures per-ACE config (Snowflake connection, username, demo account details, display name, GitHub handle and org, work email, Google Drive base path) via 10 questions, auto-detecting sensible defaults from `gh`, `snow`, and filesystem inspection. Persists answers to /memories/ace-setup.md and outputs the CCD profile envVar JSON snippet for paste-back. Triggers: ace-setup, /ace-setup, run setup, run profile setup, configure profile, first-time setup, set up account engineer, update my setup, configure ace-setup.
 ---
 
 # ACE Setup Workflow
@@ -41,6 +41,13 @@ snow sql -q "SELECT CURRENT_USER() AS user, CURRENT_REGION() AS region" --format
 # GitHub handle (if gh is authenticated)
 gh api user --jq '.login' 2>/dev/null
 
+# Work email (auto-detect from gdrive folder name or git config)
+ls -d ~/Library/CloudStorage/GoogleDrive-* 2>/dev/null | head -1 | sed 's|.*GoogleDrive-||'  # macOS
+git config user.email 2>/dev/null  # fallback
+
+# Google Drive base for activation accounts (auto-detect)
+ls -d ~/Library/CloudStorage/GoogleDrive-*/My\ Drive/Current\ Activation\ Accounts 2>/dev/null | head -1
+
 # OS user full name (for display-name suggestion)
 osascript -e 'long user name of (system info)' 2>/dev/null   # macOS
 getent passwd "$USER" | cut -d: -f5 | cut -d, -f1 2>/dev/null # Linux
@@ -48,7 +55,7 @@ getent passwd "$USER" | cut -d: -f5 | cut -d, -f1 2>/dev/null # Linux
 
 If a command fails or is unavailable, that question simply has no default — fall back to asking with no pre-filled value.
 
-### Step 3: Ask the 8 questions
+### Step 3: Ask the 10 questions
 
 Use `ask_user_question`, one question at a time, with `type: "text"` and the auto-detected value as `defaultValue` where available.
 
@@ -62,8 +69,12 @@ Use `ask_user_question`, one question at a time, with `type: "text"` and the aut
 | 6 | Display name | What's your name as it should appear on customer-facing PDF cover pages? | `ace_display_name` (memory) | OS full name | Used in PDF metadata, briefing authorship, deck cover slides |
 | 7 | GitHub handle | What's your GitHub handle? Used when you fork this profile, create project repos for customer engagements, or work with GitHub-based assets in skills | `github_handle` (memory) | `gh api user --jq .login` | If the ACE genuinely doesn't use GitHub, accept "skip" — but flag that fork/project workflows will require it later |
 | 8 | GitHub org | What GitHub org do you create project repos under? (Often the same as your handle for personal namespace; sometimes a team org like `sfc-gh-team-x`) | `github_org` (memory) | same as Q7 answer | Skip if Q7 was skipped |
+| 9 | Work email | What's your work email address? | `user_email` (memory) | parsed from `~/Library/CloudStorage/GoogleDrive-*` folder name; falls back to `git config user.email` | Used in path conventions and document metadata across many skills |
+| 10 | Drive base | What's the absolute path to your activation-accounts Google Drive folder? | `gdrive_base` (memory) | `~/Library/CloudStorage/GoogleDrive-<email>/My Drive/Current Activation Accounts` if exactly one match | Used by gdrive-desktop, account-context, account-handoff, meeting-prep, salesforce-account-intel, use-case-data, use-case-update, activity-log, todo-log, external-account-context |
 
 If Q7 is skipped, skip Q8 automatically; don't make the user click through it.
+
+If the auto-detect for Q9 or Q10 returns multiple matches, present them as options and let the user pick.
 
 ### Step 4: Persist to memory
 

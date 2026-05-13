@@ -174,6 +174,45 @@ Populates Q6 default. The user almost always wants a different value (e.g., "Jan
 **Common pitfalls:**
 - The org and the handle are different things in GitHub. Repos under your handle are personal; repos under an org are owned by that org. Make sure you have create-repo rights on whatever org you specify.
 
+### Q9: Work email
+
+**Asked:** "What's your work email address?"
+
+**Drives:**
+- Path conventions in skills that reference Google Drive (the gdrive folder name embeds the email)
+- Document metadata (author email in some PDF / handoff outputs)
+- Default fallback for git commit author identity in workflows that auto-create repos
+
+**Format:** Full email address.
+
+**Default:** auto-detected by parsing `~/Library/CloudStorage/GoogleDrive-<email>` folder name; falls back to `git config user.email`.
+
+**Common pitfalls:**
+- If you have multiple Google accounts mounted via Drive desktop, multiple folders exist. The skill presents them as options if more than one match exists.
+- Personal vs work email matters here — use the work email tied to your Snowflake-internal Google Drive.
+
+### Q10: Google Drive base path
+
+**Asked:** "What's the absolute path to your activation-accounts Google Drive folder?"
+
+**Drives:**
+- The base path many skills append to when looking up customer engagement folders
+- The "where do logs live" anchor for `activity-log` and `todo-log`
+- Where `account-context`, `account-handoff`, `meeting-prep`, `external-account-context`, `salesforce-account-intel`, `use-case-data`, `use-case-update` look for per-customer files
+
+**Format:** Absolute path. On macOS this is typically:
+`/Users/<you>/Library/CloudStorage/GoogleDrive-<email>/My Drive/Current Activation Accounts`
+
+**Default:** auto-detected via `ls -d ~/Library/CloudStorage/GoogleDrive-*/My\ Drive/Current\ Activation\ Accounts` — if exactly one match, use it.
+
+**If the ACE doesn't have this folder structure:**
+
+> Some teams use a different folder organization (per-quarter, per-business-unit, etc.). Type the path that's the equivalent of "where customer engagement folders live for me." Skills that depend on this can be re-pointed by re-running `/ace-setup` later.
+
+**Common pitfalls:**
+- Trailing slash matters less than you'd think — most skills handle either form. Default to no trailing slash.
+- Spaces in the path require quoting when used in shell commands; the skills that need this path quote it correctly.
+
 ---
 
 ## Persistence

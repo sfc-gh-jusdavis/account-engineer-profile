@@ -1,0 +1,5 @@
+[
+  {"label": "SYSTEM$GET_PRIVATELINK_CONFIG", "url": "https://docs.snowflake.com/en/sql-reference/functions/system_get_privatelink_config", "category": "System Function"},
+  {"label": "SYSTEM$ALLOWLIST_PRIVATELINK", "url": "https://docs.snowflake.com/en/sql-reference/functions/system_allowlist_privatelink", "category": "System Function"},
+  {"label": "SHOW NETWORK POLICIES", "url": "https://docs.snowflake.com/en/sql-reference/sql/show-network-policies", "category": "SQL Command"}
+]

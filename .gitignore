@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Office lock files
+~$*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Local-only
+.env
+.envrc
+*.local
+
+# Python build / cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/

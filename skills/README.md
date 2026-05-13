@@ -2,57 +2,54 @@
 
 This directory contains the CCD skills the Account Engineer profile registers.
 
-## v0.1.1 Skills
+## v0.2.0 Skills (Phase 2 read-only migrations complete)
 
 | Skill | Purpose |
 |---|---|
-| `ace-setup/` | First-time and recurring setup workflow. Captures per-ACE config (Snowflake connection, username, demo account, display name, GitHub handle and org) via 8 questions, auto-detecting defaults from `gh` and `snow` CLIs. Persists to `/memories/ace-setup.md` and outputs the CCD profile envVar JSON. See [ace-setup/SKILL.md](ace-setup/SKILL.md). |
-| `asset-creation-discipline/` | Apply rigorous discipline to creation tasks (PDFs, notebooks, scripts, decks, research). Active since v0.1.0 — see [asset-creation-discipline/SKILL.md](asset-creation-discipline/SKILL.md). |
+| `ace-setup/` | First-time and recurring setup workflow. Captures per-ACE config (Snowflake connection, username, demo account, display name, GitHub handle and org, work email, gdrive base path) via 10 questions, auto-detecting defaults from `gh`, `snow`, and filesystem inspection. Persists to `/memories/ace-setup.md`. See [ace-setup/SKILL.md](ace-setup/SKILL.md). |
+| `architecture-diagram/` | Mermaid diagram standards for Snowflake projects (data-model, data-flow, network-flow, auth-flow). See [architecture-diagram/SKILL.md](architecture-diagram/SKILL.md). |
+| `asset-creation-discipline/` | Apply rigorous discipline to creation tasks (PDFs, notebooks, scripts, decks, research). See [asset-creation-discipline/SKILL.md](asset-creation-discipline/SKILL.md). |
+| `gong/` | Find Gong call summaries in Snowhouse. See [gong/SKILL.md](gong/SKILL.md). |
+| `pptx/` | Snowflake-branded PowerPoint deck creation with Google Drive sync. See [pptx/SKILL.md](pptx/SKILL.md). |
+| `similar-use-cases/` | Find similar use cases and customer patterns using Glean search. See [similar-use-cases/SKILL.md](similar-use-cases/SKILL.md). |
+| `snowflake-pdf/` | Render Markdown into Snowflake-branded PDFs with cover page, brand colors, classification footer, validated References section. See [snowflake-pdf/SKILL.md](snowflake-pdf/SKILL.md). |
 
 ## Migration Roadmap
 
-The profile starts thin and grows in phases. Each phase adds a category of skills.
+### Phase 3: Personal-Data Skills (require sanitization) — PLANNED
 
-### Phase 2: Read-Only Skills (no personal data)
+These skills currently contain hardcoded connection names, user emails, gdrive paths, or account references. Each must be parameterized before migration. Sanitization pattern: replace personal values with `${ACE_*}` placeholder references that resolve via `/memories/ace-setup.md` (populated by the `ace-setup` skill) or profile envVars.
 
-These skills have no hardcoded personal references — straight migration into the profile.
-
-| Skill | Source | Status |
+| Skill | Source | Sanitization scope |
 |---|---|---|
-| `snowflake-pdf` | `~/.snowflake/cortex/skills/snowflake-pdf/` | Planned |
-| `architecture-diagram` | local | Planned |
-| `gdrive-desktop` | local | Planned |
-| `gong` | local | Planned |
-| `similar-use-cases` | local | Planned |
-| `pptx` | local | Planned |
+| `gdrive-desktop` | local | Hardcoded gdrive base path; reads `gdrive_base` from memory |
+| `account-context` | local | YAML config block: `user_email`, `gdrive_base` |
+| `account-handoff` | local | YAML config block; example owner field |
+| `account-status` | local | YAML config block; customer name examples |
+| `account-team` | local | YAML config block: `user_email` |
+| `activity-log` | local | Hardcoded log path; reads `gdrive_base` from memory |
+| `customer-role-hierarchy` | local | Connection name literals |
+| `external-account-context` | local | YAML config block; "Consumers Credit Union" examples |
+| `meeting-prep` | local | YAML config block |
+| `salesforce-account-intel` | local | YAML config block; SF connection literals |
+| `todo-log` | local | Hardcoded log + draft folder paths |
+| `use-case-data` | local | YAML config block; `config.yaml` |
+| `use-case-update` | local | YAML config block |
 
-### Phase 3: Personal-Data Skills (require sanitization)
+### Phase 4: Slash Commands + Examples — PLANNED
 
-These skills currently contain hardcoded connection names, usernames, account references — must be parameterized before migration.
+Slash commands (`/start-asset`, `/multi-review`, `/public-repo-review`, `/audience-check`), sanitized example assets, and a pre-commit hook for the public-repo content sweep.
 
-| Skill | Source | Sanitization needed |
-|---|---|---|
-| `account-context` | local | Connection names, user handles |
-| `account-handoff` | local | Personal references |
-| `account-status` | local | Customer account names |
-| `account-team` | local | Team membership data |
-| `activity-log` | local | Personal log path |
-| `customer-role-hierarchy` | local | Connection names |
-| `external-account-context` | local | Personal context |
-| `meeting-prep` | local | Personal references |
-| `salesforce-account-intel` | local | SF auth + connection |
-| `todo-log` | local | Personal todos |
-| `use-case-data` | local | Personal use case ids |
-| `use-case-update` | local | Personal use case ids |
+### Phase 5: Second-ACE Onboarding — PLANNED
 
-Sanitization pattern: replace personal values with `${ACE_DEFAULT_CONN}` / `${ACE_USER_HANDLE}` env var references; document required env vars in the skill's SKILL.md.
+Validate the profile end-to-end with a second ACE installing it cold.
 
 ### Skills That Stay Personal (NOT in Profile)
 
 | Skill | Reason |
 |---|---|
 | `slack-bridge` | Personal phone, personal Slack DMs |
-| `bookmanager-ops` | Project-specific, not ACE-general |
+| `bookmanager-ops` | Project-specific to one engagement |
 | `de-studies` | Personal curriculum tracking |
 
 ## Adding a New Skill
@@ -61,7 +58,7 @@ See [../CONTRIBUTING.md](../CONTRIBUTING.md). Briefly:
 
 1. Branch: `git checkout -b feat/<skill-name>`
 2. Place at `skills/<skill-name>/` with a `SKILL.md` defining triggers and workflow
-3. Sanitize any personal values (connection names, usernames, account references)
+3. Sanitize any personal values (connection names, usernames, account references, paths)
 4. Run the public-repo grep recipe (see [../docs/public-repo-policy.md](../docs/public-repo-policy.md))
 5. Update this README to list the new skill
 6. Open PR

@@ -17,18 +17,21 @@ Established repo, system prompt, asset-creation-discipline skill.
 | Profile installed in CCD via form | User action |
 | Smoke test (notebook draft request triggers discipline) | User action |
 
-## Phase 2: Read-Only Skill Migration (v0.2.0)
+## Phase 2: Read-Only Skill Migration (v0.2.0) — DONE
 
 Migrate skills that have no hardcoded personal references — straight copy + light cleanup.
 
-| Skill | Source | PR scope |
-|---|---|---|
-| `snowflake-pdf` | `~/.snowflake/cortex/skills/snowflake-pdf/` | Direct migration; verify no personal references in samples/ |
-| `architecture-diagram` | local | Direct migration |
-| `gdrive-desktop` | local | Direct migration |
-| `gong` | local | Direct migration; verify no customer call snippets |
-| `similar-use-cases` | local | Direct migration |
-| `pptx` | local | Direct migration; verify templates have no customer logos |
+| Skill | Source | PR scope | Status |
+|---|---|---|---|
+| `snowflake-pdf` | `~/.snowflake/cortex/skills/snowflake-pdf/` | Light scrub (Consumers Credit Union and Justin Davis examples) | Migrated |
+| `architecture-diagram` | local | Direct migration | Migrated |
+| `gong` | local | Direct migration | Migrated |
+| `similar-use-cases` | local | Direct migration | Migrated |
+| `pptx` (renamed from `CoCo_pptx_Skill`) | local | Folder rename + dropped `~$` Office lock file | Migrated |
+
+Reclassified: `gdrive-desktop` moved from Phase 2 to Phase 3 because it has hardcoded gdrive paths that require sanitization.
+
+Also shipped in v0.2.0: extended `ace-setup` with Q9 (`user_email`) and Q10 (`gdrive_base`) so Phase 3 sanitized skills can read those values from `/memories/ace-setup.md`.
 
 One PR per skill. Each PR:
 1. Copies the skill to `skills/<name>/`
