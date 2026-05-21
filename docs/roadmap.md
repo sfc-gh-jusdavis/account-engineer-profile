@@ -39,7 +39,11 @@ One PR per skill. Each PR:
 3. Updates `skills/README.md` to mark it migrated
 4. Smoke-tests the skill works under the profile
 
-## Phase 3: Personal-Data Skill Migration (v0.3.0)
+## Phase 3: Demo Skill Bundle (v0.3.0) — DONE
+
+Added the `demo-ops` skill bundle for building lightweight, non-repo Snowflake demos. Parent skill plus 6 sub-skills (`coordinator`, `principles`, `workflow`, `synthetic-data`, `snowflake-conventions`, `deploy`). All examples sanitized to generic placeholders; no personal or internal references. See [skills/demo-ops/README.md](../skills/demo-ops/README.md).
+
+## Phase 4: Personal-Data Skill Migration (v0.4.0)
 
 Higher-risk: each skill has hardcoded personal info that must be parameterized.
 
@@ -66,7 +70,7 @@ Per-skill recipe:
 5. Public-repo content sweep
 6. PR with before/after sanitization summary
 
-## Phase 4: Slash Commands + Examples (v0.4.0)
+## Phase 5: Slash Commands + Examples (v0.5.0)
 
 | Command | Purpose |
 |---|---|
@@ -85,7 +89,7 @@ Per-skill recipe:
 
 Pre-commit hook for the public-repo content sweep also lands in this phase.
 
-## Phase 5: Second-ACE Onboarding (v1.0.0)
+## Phase 6: Second-ACE Onboarding (v1.0.0)
 
 Validate the profile end-to-end with a second ACE installing it cold.
 
@@ -113,9 +117,10 @@ Steps:
 |---|---|
 | 1: Bootstrap | 0.1.0 |
 | 2: Read-only skills | 0.2.0 |
-| 3: Personal-data skills | 0.3.0 |
-| 4: Commands + examples | 0.4.0 |
-| 5: Second-ACE validation | 1.0.0 |
+| 3: Demo skill bundle | 0.3.0 |
+| 4: Personal-data skills | 0.4.0 |
+| 5: Commands + examples | 0.5.0 |
+| 6: Second-ACE validation | 1.0.0 |
 
 Patch versions (0.x.y) bump for fixes within a phase.
 

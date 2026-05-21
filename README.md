@@ -51,11 +51,12 @@ account-engineer-profile/
 
 | Phase | Scope | Status |
 |---|---|---|
-| 1 | Bootstrap repo + asset-creation-discipline skill + system prompt | This release |
-| 2 | Migrate read-only skills (snowflake-pdf, architecture-diagram, gdrive-desktop, gong, similar-use-cases, pptx) | Planned |
-| 3 | Migrate + sanitize personal-data skills (account-context, account-handoff, etc.) | Planned |
-| 4 | Slash commands (multi-review, start-asset, public-repo-review) + sanitized examples | Planned |
-| 5 | Onboard a second ACE; iterate on feedback | Planned |
+| 1 | Bootstrap repo + asset-creation-discipline skill + system prompt | Done (v0.1.0) |
+| 2 | Migrate read-only skills (snowflake-pdf, architecture-diagram, gdrive-desktop, gong, similar-use-cases, pptx) | Done (v0.2.0) |
+| 3 | Add `demo-ops` skill bundle (parent + 6 sub-skills) for non-repo Snowflake demos | Done (v0.3.0) |
+| 4 | Migrate + sanitize personal-data skills (account-context, account-handoff, etc.) | Planned |
+| 5 | Slash commands (multi-review, start-asset, public-repo-review) + sanitized examples | Planned |
+| 6 | Onboard a second ACE; iterate on feedback | Planned |
 
 See [docs/architecture.md](docs/architecture.md) for how the pieces compose.
 
