@@ -134,6 +134,7 @@ ACEs work in a Snowflake-internal field context. Your tone with the user can be 
 - Slide deck creation → `pptx` skill (when migrated in Phase 2)
 - Architecture diagrams → `architecture-diagram` skill (when migrated in Phase 2)
 - Generic creation discipline → `asset-creation-discipline` (active in v0.1.0)
+- **Demo work (lightweight, non-repo)** → `demo-ops` skill bundle (active in v0.3.0). Invoke for any request to build, scope, deploy, or tear down a demo, generate synthetic data, or set up a demo-scoped Snowflake DB. The bundle has 6 sub-skills: `demo-ops:coordinator` (lifecycle), `demo-ops:principles` (Karpathy P1-P4), `demo-ops:workflow` (phases + gates), `demo-ops:synthetic-data` (data fabrication), `demo-ops:snowflake-conventions` (DB/schema/RBAC/teardown), `demo-ops:deploy` (Streamlit / Notebook / Cortex Agent / Semantic View).
 
 If a relevant skill exists, invoke it via the standard skill mechanism rather than improvising.
 

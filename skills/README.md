@@ -14,6 +14,12 @@ This directory contains the CCD skills the Account Engineer profile registers.
 | `similar-use-cases/` | Find similar use cases and customer patterns using Glean search. See [similar-use-cases/SKILL.md](similar-use-cases/SKILL.md). |
 | `snowflake-pdf/` | Render Markdown into Snowflake-branded PDFs with cover page, brand colors, classification footer, validated References section. See [snowflake-pdf/SKILL.md](snowflake-pdf/SKILL.md). |
 
+## v0.3.0 Skills (demo-ops bundle)
+
+| Skill | Purpose |
+|---|---|
+| `demo-ops/` | Parent dispatcher for the demo bundle. Routes to 6 sub-skills covering the full demo lifecycle (scope, build, rehearse, present, teardown). See [demo-ops/README.md](demo-ops/README.md). Sub-skills: `demo-ops:coordinator`, `demo-ops:principles`, `demo-ops:workflow`, `demo-ops:synthetic-data`, `demo-ops:snowflake-conventions`, `demo-ops:deploy`. |
+
 ## Migration Roadmap
 
 ### Phase 3: Personal-Data Skills (require sanitization) — PLANNED

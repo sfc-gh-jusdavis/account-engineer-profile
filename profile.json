@@ -2,7 +2,7 @@
   "name": "Account Engineer",
   "description": "Cortex Code profile for Snowflake Account Engineers. Bundles asset-creation discipline, account-workflow skills, and an ACE-tuned system prompt.",
   "ownerTeam": "Account Engineering",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "skillRepos": [
     "https://github.com/sfc-gh-jusdavis/account-engineer-profile/tree/main/skills"
   ],
