@@ -9,7 +9,7 @@ Before starting:
 - [ ] Cortex Code Desktop is installed and authenticated
 - [ ] At least one Snowflake connection is configured locally (verify with `snow connection list`)
 - [ ] The Account Engineer profile shows in your CCD profile picker
-- [ ] You've set the env vars `ACE_DEFAULT_CONN` and `ACE_USER_HANDLE` either on the profile or in your shell
+- [ ] You've set the env vars `ACE_DEFAULT_CONN`, `ACE_DEMO_CONN`, and `ACE_USER_HANDLE` either on the profile or in your shell
 
 ## Step 1: Switch to the Profile
 
@@ -23,8 +23,8 @@ In your first chat under the new profile, type:
 
 The skill walks you through 8 questions and produces:
 
-- A populated `/memories/ace-setup.md` file (your demo account, display name, GitHub identity)
-- A JSON snippet to paste into your CCD profile envVars (your `ACE_DEFAULT_CONN` and `ACE_USER_HANDLE` values)
+- A populated `/memories/ace-setup.md` file (your demo account, demo connection, display name, GitHub identity)
+- A JSON snippet to paste into your CCD profile envVars (your `ACE_DEFAULT_CONN`, `ACE_DEMO_CONN`, and `ACE_USER_HANDLE` values)
 
 Where it can, the skill auto-detects sensible defaults from `snow connection list`, `gh api user`, and your OS user info — you mostly confirm rather than type.
 
@@ -107,6 +107,7 @@ Until those phases land, your personal CCD setup remains your primary toolkit. T
 | Agent jumps to writing cells without surfacing assumptions | asset-creation-discipline skill not loaded | Re-save profile in CCD form to refresh skill repos |
 | Agent writes to a non-TEMP schema | system-prompt.md not loaded | Verify `_systemPromptUrl` in the profile JSON points at the correct file |
 | `${ACE_DEFAULT_CONN}` literal appears instead of expanded | env var not set | Set on profile via JSON `envVars` or in `~/.zshrc` |
+| `${ACE_DEMO_CONN}` literal appears instead of expanded | env var not set | Set on profile via JSON `envVars` or in `~/.zshrc`; run `/ace-setup` Q2 if skipped earlier |
 | Skill repo update doesn't propagate | CCD cached the old version | Edit profile, re-save, restart CCD session |
 
 ## Get in Touch

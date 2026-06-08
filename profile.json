@@ -13,6 +13,7 @@
   "hooks": {},
   "envVars": {
     "ACE_DEFAULT_CONN": "<your-snowflake-connection-name>",
+    "ACE_DEMO_CONN": "<your-demo-connection-name>",
     "ACE_USER_HANDLE": "<your-snowflake-username>"
   },
   "settingsOverrides": {},

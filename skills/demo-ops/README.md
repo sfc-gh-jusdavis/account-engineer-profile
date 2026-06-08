@@ -32,7 +32,7 @@ The bundle uses placeholder strings throughout and reads connection from the pro
 
 | Setting | Value |
 |---|---|
-| Connection | `${ACE_DEFAULT_CONN}` |
+| Connection | `${ACE_DEMO_CONN}` |
 | Warehouse for DDL/DML | `<your-warehouse>` (any writable warehouse you own) |
 | Warehouse for SELECT | `<read-only-warehouse>` (the shared SELECT warehouse on your account) |
 | DB naming | `DEMO_<topic>` shared / `<USER>_DEMO_<topic>` personal |

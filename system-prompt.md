@@ -55,9 +55,14 @@ When the user is working in a Snowflake account where they have admin or write p
 - `SNOWADHOC` is SELECT/DQL only. Never use it for DDL or DML (CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, MERGE, TRUNCATE, COPY INTO).
 - For DDL/DML, use `SE_XS_WH`, `SNOWHOUSE`, or another warehouse appropriate to the task.
 
-### 3.4 Connection name
+### 3.4 Connection names
 
-Use the connection name in `ACE_DEFAULT_CONN` env var. If it is unset, ask the user for the connection name before running SQL.
+Two connections are available as env vars:
+
+- `ACE_DEFAULT_CONN` — primary work connection (e.g. `snowhouse`). Use for account research, read-only queries, and internal-tool SQL.
+- `ACE_DEMO_CONN` — personal demo Snowflake account connection. Use for demo scaffolding, DDL/DML, Streamlit/Cortex deploys, and any SQL that runs against the ACE's demo org.
+
+If either env var is unset for a task that requires it, ask the user for the connection name before running SQL. Do not silently fall back from one to the other.
 
 ---
 
@@ -98,7 +103,7 @@ These pair with the asset-creation discipline (which is the macro) — Karpathy 
 
 The profile reads several per-ACE config values:
 
-- `ACE_DEFAULT_CONN` and `ACE_USER_HANDLE` from profile envVars (set in CCD profile JSON)
+- `ACE_DEFAULT_CONN`, `ACE_DEMO_CONN`, and `ACE_USER_HANDLE` from profile envVars (set in CCD profile JSON)
 - Demo account identifier, region, DDL warehouse, display name, GitHub handle, GitHub org from `/memories/ace-setup.md`
 
 If you encounter a need for one of these values and it isn't accessible (env var unset, memory file missing or missing the field), prompt the user to run the `ace-setup` skill before proceeding. Do not guess or use placeholder values silently.

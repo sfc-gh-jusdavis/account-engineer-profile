@@ -18,7 +18,7 @@ Lifecycle for demos. Replaces the GitHub PR/CI loop with in-session validation.
 ## Phase 1: Scope
 
 1. Confirm audience, takeaway, runtime budget.
-2. Confirm Snowflake connection (default `${ACE_DEFAULT_CONN}`), DB.SCHEMA, cleanup intent.
+2. Confirm Snowflake connection (default `${ACE_DEMO_CONN}`), DB.SCHEMA, cleanup intent.
 3. Plan synthetic-data sources up front (see `demo-ops:synthetic-data`).
 4. Switch to plan mode for non-trivial work. Wait for explicit user approval.
 

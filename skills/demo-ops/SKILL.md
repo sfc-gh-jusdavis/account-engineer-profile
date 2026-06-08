@@ -9,7 +9,7 @@ Parent skill for the demo-ops bundle. Routes the agent to the right sub-skill fo
 
 Before invoking any sub-skill, confirm:
 
-1. **Snowflake connection** — default `${ACE_DEFAULT_CONN}` (or whichever the user has configured). Confirm out loud.
+1. **Snowflake connection** — default `${ACE_DEMO_CONN}` (or whichever the user has configured). Confirm out loud.
 2. **Audience and goal** — who is the demo for, what is the takeaway?
 3. **Runtime budget** — how long is the live presentation (5 / 15 / 30 min)?
 4. **DB/schema** — `DEMO_<topic>` (shared) or `<USER>_DEMO_<topic>` (personal scratch). Pick before any DDL.
@@ -34,7 +34,7 @@ For non-trivial demos (>3 build steps, multiple objects, shared DB writes), swit
 
 | Setting | Default |
 |---|---|
-| Connection | `${ACE_DEFAULT_CONN}` |
+| Connection | `${ACE_DEMO_CONN}` |
 | Warehouse for DDL/DML | `<your-warehouse>` (never the read-only / shared SELECT warehouse) |
 | Warehouse for SELECT | `<read-only-warehouse>` |
 | DB naming | `DEMO_<topic>` shared, `<USER>_DEMO_<topic>` personal |

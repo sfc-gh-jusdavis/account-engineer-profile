@@ -21,7 +21,7 @@ Lightweight deploy patterns for demos. No Docker, no Makefile, no SPCS by defaul
 ```bash
 snow streamlit deploy \
     --replace \
-    --connection ${ACE_DEFAULT_CONN} \
+    --connection ${ACE_DEMO_CONN} \
     --database DEMO_<topic> \
     --schema APP
 ```
@@ -51,7 +51,7 @@ SELECT SYSTEM$GENERATE_STREAMLIT_URL_FROM_NAME('DEMO_<topic>.APP.<demo_name>');
 
 ```bash
 snow notebook deploy <notebook_name> \
-    --connection ${ACE_DEFAULT_CONN} \
+    --connection ${ACE_DEMO_CONN} \
     --database DEMO_<topic> \
     --schema APP \
     --replace

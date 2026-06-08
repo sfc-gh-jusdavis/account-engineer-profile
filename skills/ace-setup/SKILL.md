@@ -1,6 +1,6 @@
 ---
 name: ace-setup
-description: First-time and recurring setup workflow for the Account Engineer profile. Captures per-ACE config (Snowflake connection, username, demo account details, display name, GitHub handle and org, work email, Google Drive base path) via 10 questions, auto-detecting sensible defaults from `gh`, `snow`, and filesystem inspection. Persists answers to /memories/ace-setup.md and outputs the CCD profile envVar JSON snippet for paste-back. Triggers: ace-setup, /ace-setup, run setup, run profile setup, configure profile, first-time setup, set up account engineer, update my setup, configure ace-setup.
+description: First-time and recurring setup workflow for the Account Engineer profile. Captures per-ACE config (primary connection, demo connection, username, demo account details, display name, GitHub handle and org, work email, Google Drive base path) via 11 questions, auto-detecting sensible defaults from `gh`, `snow`, and filesystem inspection. Persists answers to /memories/ace-setup.md and outputs the CCD profile envVar JSON snippet for paste-back. Triggers: ace-setup, /ace-setup, run setup, run profile setup, configure profile, first-time setup, set up account engineer, update my setup, configure ace-setup.
 ---
 
 # ACE Setup Workflow
@@ -23,9 +23,9 @@ Read `/memories/ace-setup.md`. Three branches:
 
 | State | Action |
 |---|---|
-| File exists, all 8 fields populated | This is a re-run. Show the current values in a table. Ask which to update (offer "all" / "specific fields" / "just notes" / "cancel"). |
+| File exists, all 9 fields populated | This is a re-run. Show the current values in a table. Ask which to update (offer "all" / "specific fields" / "just notes" / "cancel"). |
 | File exists, some fields blank or "not set" | Continue from where the prior run left off; only ask the unanswered questions. |
-| File does not exist | First-time setup. Ask all 8 questions. |
+| File does not exist | First-time setup. Ask all 9 questions. |
 
 ### Step 2: Auto-detect defaults
 
@@ -55,26 +55,28 @@ getent passwd "$USER" | cut -d: -f5 | cut -d, -f1 2>/dev/null # Linux
 
 If a command fails or is unavailable, that question simply has no default — fall back to asking with no pre-filled value.
 
-### Step 3: Ask the 10 questions
+### Step 3: Ask the 11 questions
 
 Use `ask_user_question`, one question at a time, with `type: "text"` and the auto-detected value as `defaultValue` where available.
 
 | # | Question header | Question | Field | Default source | Notes |
 |---|---|---|---|---|---|
-| 1 | Connection | What's the name of your Snowflake connection? | `ACE_DEFAULT_CONN` (envVar) | `snow connection list` first entry | Used by every SQL skill |
-| 2 | Username | What's your Snowflake username? | `ACE_USER_HANDLE` (envVar) | `SELECT CURRENT_USER()` from Q1's connection | Drives `TEMP.<USER>` write scope |
-| 3 | Demo account | What's your demo account identifier? | `demo_account` (memory) | none | The personal-testing account you use; not your customer's account |
-| 4 | Demo region | What region is your demo account in (e.g. AWS_US_WEST_2, AZURE_EAST_US_2)? | `demo_region` (memory) | `SELECT CURRENT_REGION()` from Q1 | Used in PDF metadata and skill defaults |
-| 5 | DDL warehouse | What warehouse do you use for DDL/DML in your demo account? | `ddl_warehouse` (memory) | `SE_XS_WH` | Skills suggest this for writes; the system prompt forbids DDL on `SNOWADHOC` |
-| 6 | Display name | What's your name as it should appear on customer-facing PDF cover pages? | `ace_display_name` (memory) | OS full name | Used in PDF metadata, briefing authorship, deck cover slides |
-| 7 | GitHub handle | What's your GitHub handle? Used when you fork this profile, create project repos for customer engagements, or work with GitHub-based assets in skills | `github_handle` (memory) | `gh api user --jq .login` | If the ACE genuinely doesn't use GitHub, accept "skip" — but flag that fork/project workflows will require it later |
-| 8 | GitHub org | What GitHub org do you create project repos under? (Often the same as your handle for personal namespace; sometimes a team org like `sfc-gh-team-x`) | `github_org` (memory) | same as Q7 answer | Skip if Q7 was skipped |
-| 9 | Work email | What's your work email address? | `user_email` (memory) | parsed from `~/Library/CloudStorage/GoogleDrive-*` folder name; falls back to `git config user.email` | Used in path conventions and document metadata across many skills |
-| 10 | Drive base | What's the absolute path to your activation-accounts Google Drive folder? | `gdrive_base` (memory) | `~/Library/CloudStorage/GoogleDrive-<email>/My Drive/Current Activation Accounts` if exactly one match | Used by gdrive-desktop, account-context, account-handoff, meeting-prep, salesforce-account-intel, use-case-data, use-case-update, activity-log, todo-log, external-account-context |
+| 1 | Connection | What's the name of your primary work Snowflake connection? (e.g. `snowhouse` for internal tooling) | `ACE_DEFAULT_CONN` (envVar) | `snow connection list` first entry | Used for account research, read-only queries, and internal-tool SQL |
+| 2 | Demo connection | What's the name of your demo Snowflake connection? (your personal demo account) | `ACE_DEMO_CONN` (envVar) | `snow connection list` second entry if present, otherwise none | Used by demo-ops skills for DDL/DML and deploys; skippable if the ACE doesn't build demos |
+| 3 | Username | What's your Snowflake username? | `ACE_USER_HANDLE` (envVar) | `SELECT CURRENT_USER()` from Q1's connection | Drives `TEMP.<USER>` write scope |
+| 4 | Demo account | What's your demo account identifier? | `demo_account` (memory) | none | The personal-testing account you use; not your customer's account |
+| 5 | Demo region | What region is your demo account in (e.g. AWS_US_WEST_2, AZURE_EAST_US_2)? | `demo_region` (memory) | `SELECT CURRENT_REGION()` from Q2's connection if set | Used in PDF metadata and skill defaults |
+| 6 | DDL warehouse | What warehouse do you use for DDL/DML in your demo account? | `ddl_warehouse` (memory) | `SE_XS_WH` | Skills suggest this for writes; the system prompt forbids DDL on `SNOWADHOC` |
+| 7 | Display name | What's your name as it should appear on customer-facing PDF cover pages? | `ace_display_name` (memory) | OS full name | Used in PDF metadata, briefing authorship, deck cover slides |
+| 8 | GitHub handle | What's your GitHub handle? Used when you fork this profile, create project repos for customer engagements, or work with GitHub-based assets in skills | `github_handle` (memory) | `gh api user --jq .login` | If the ACE genuinely doesn't use GitHub, accept "skip" — but flag that fork/project workflows will require it later |
+| 9 | GitHub org | What GitHub org do you create project repos under? (Often the same as your handle for personal namespace; sometimes a team org like `sfc-gh-team-x`) | `github_org` (memory) | same as Q8 answer | Skip if Q8 was skipped |
+| 10 | Work email | What's your work email address? | `user_email` (memory) | parsed from `~/Library/CloudStorage/GoogleDrive-*` folder name; falls back to `git config user.email` | Used in path conventions and document metadata across many skills |
+| 11 | Drive base | What's the absolute path to your activation-accounts Google Drive folder? | `gdrive_base` (memory) | `~/Library/CloudStorage/GoogleDrive-<email>/My Drive/Current Activation Accounts` if exactly one match | Used by gdrive-desktop, account-context, account-handoff, meeting-prep, salesforce-account-intel, use-case-data, use-case-update, activity-log, todo-log, external-account-context |
 
-If Q7 is skipped, skip Q8 automatically; don't make the user click through it.
+If Q2 is skipped, still auto-detect region from Q1's connection for Q5 if possible.
+If Q8 is skipped, skip Q9 automatically; don't make the user click through it.
 
-If the auto-detect for Q9 or Q10 returns multiple matches, present them as options and let the user pick.
+If the auto-detect for Q10 or Q11 returns multiple matches, present them as options and let the user pick.
 
 ### Step 4: Persist to memory
 
@@ -87,7 +89,8 @@ Print this for the user to paste into their CCD profile envVars (form -> JSON ta
 ```json
 "envVars": {
   "ACE_DEFAULT_CONN": "<answer to Q1>",
-  "ACE_USER_HANDLE": "<answer to Q2>"
+  "ACE_DEMO_CONN": "<answer to Q2, or omit if skipped>",
+  "ACE_USER_HANDLE": "<answer to Q3>"
 }
 ```
 
@@ -108,6 +111,7 @@ Show the user a summary of what was written:
 ```
 ACE Setup complete:
 - Connection: <value>
+- Demo connection: <value, or "not set">
 - Username: <value>
 - Demo account: <value> in <region>
 - DDL warehouse: <value>
@@ -115,13 +119,13 @@ ACE Setup complete:
 - GitHub: <handle>/<org>
 
 Memory file: /memories/ace-setup.md
-Profile envVars to update: ACE_DEFAULT_CONN, ACE_USER_HANDLE
+Profile envVars to update: ACE_DEFAULT_CONN, ACE_DEMO_CONN, ACE_USER_HANDLE
 ```
 
 ## Anti-Patterns to Avoid
 
 - **Don't guess values silently.** If `gh` is unauthenticated, ask the user — don't fabricate a handle.
-- **Don't ignore "skip".** If the user says skip on Q7, respect it. Don't badger.
+- **Don't ignore "skip".** If the user says skip on Q2 or Q8, respect it. Don't badger.
 - **Don't auto-trigger on session start.** Only run when explicitly invoked or when another skill genuinely needs a value.
 - **Don't write to memory until all questions are answered or the user explicitly cancels.** Partial state is fine to persist; partial silently-defaulted state is not.
 - **Don't ask about secrets.** Connection auth (PATs, passwords) belongs in `~/.snowflake/config.toml`, not memory. The skill captures the connection NAME, not credentials.
@@ -132,7 +136,7 @@ When the user invokes the skill and `/memories/ace-setup.md` exists:
 
 1. Print the current values
 2. Offer four paths:
-   - **Update all fields** (re-ask all 8)
+   - **Update all fields** (re-ask all 9)
    - **Update specific fields** (ask which, then ask only those)
    - **Update notes only** (skip questions, just open the Notes section for editing)
    - **Cancel** (do nothing, exit)

@@ -13,7 +13,7 @@ Owns the demo lifecycle. Walks the user through 5 phases and dispatches to the r
    - Runtime budget (5 / 15 / 30 min)
    - DB/schema name (`DEMO_<topic>` vs `<USER>_DEMO_<topic>`)
    - Cleanup intent (drop / preserve)
-   - Snowflake connection (default `${ACE_DEFAULT_CONN}`)
+   - Snowflake connection (default `${ACE_DEMO_CONN}`)
 2. Identify which sub-skills will be needed:
    - Synthetic data? -> plan to invoke `demo-ops:synthetic-data`
    - Streamlit / Notebook / Agent / Semantic View? -> plan to invoke `demo-ops:deploy`

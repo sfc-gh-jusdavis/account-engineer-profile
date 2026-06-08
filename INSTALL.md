@@ -45,6 +45,7 @@ This profile is installed via Cortex Code Desktop's profile creation form.
   "hooks": {},
   "envVars": {
     "ACE_DEFAULT_CONN": "<your-snowflake-connection-name>",
+    "ACE_DEMO_CONN": "<your-demo-connection-name>",
     "ACE_USER_HANDLE": "<your-snowflake-username>"
   },
   "settingsOverrides": {},
@@ -61,7 +62,8 @@ The profile reads two env vars:
 
 | Variable | Purpose | Example |
 |---|---|---|
-| `ACE_DEFAULT_CONN` | Default Snowflake connection name passed to SQL tools | `MY_AWS_CONN` |
+| `ACE_DEFAULT_CONN` | Primary work connection (e.g. `snowhouse`); used for account research and internal-tool SQL | `snowhouse` |
+| `ACE_DEMO_CONN` | Personal demo Snowflake account connection; used by demo-ops skills for DDL/DML and deploys | `MY_DEMO_AWS` |
 | `ACE_USER_HANDLE` | Your Snowflake username; used to scope writes to `TEMP.<USER>` | `JANE_DOE` |
 
 These can be set on the profile (recommended) or in your shell (`~/.zshrc`).

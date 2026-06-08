@@ -20,6 +20,7 @@ Last updated: <ISO date, e.g. 2026-05-13>
 
 ## Connection
 - Connection name: <ACE_DEFAULT_CONN value>
+- Demo connection: <ACE_DEMO_CONN value, or "not set">
 - Snowflake username: <ACE_USER_HANDLE value>
 
 ## Demo Account
@@ -48,7 +49,8 @@ Last updated: <ISO date, e.g. 2026-05-13>
 
 | Section | Field | Purpose | Read by |
 |---|---|---|---|
-| Connection | Connection name | The Snowflake CLI connection alias | Almost every SQL-running skill (also reads `${ACE_DEFAULT_CONN}` env var as primary) |
+| Connection | Connection name | The Snowflake CLI connection alias for the primary work account (e.g. snowhouse) | Almost every SQL-running skill (also reads `${ACE_DEFAULT_CONN}` env var as primary) |
+| Connection | Demo connection | The Snowflake CLI connection alias for the ACE's personal demo account | demo-ops skills (also reads `${ACE_DEMO_CONN}` env var as primary) |
 | Connection | Snowflake username | Drives `TEMP.<USER>` write scope | SQL-running skills (also reads `${ACE_USER_HANDLE}` env var as primary) |
 | Demo Account | Account identifier | Cover-page metadata, runbook context | snowflake-pdf (Phase 2), briefing skills |
 | Demo Account | Region | Cover-page metadata, region-specific URLs | snowflake-pdf, architecture-diagram |
@@ -63,7 +65,7 @@ Last updated: <ISO date, e.g. 2026-05-13>
 
 ## Why Two Storage Locations?
 
-`ACE_DEFAULT_CONN` and `ACE_USER_HANDLE` live in BOTH this memory file AND the CCD profile envVars. Reasons:
+`ACE_DEFAULT_CONN`, `ACE_DEMO_CONN`, and `ACE_USER_HANDLE` live in BOTH this memory file AND the CCD profile envVars. Reasons:
 
 - **Profile envVars** are accessible at skill-execution time as `${VAR}` expansion in skill code. This is the runtime path.
 - **Memory file** is human-readable, easy for the user to inspect, and consulted by skills that need the value but aren't doing `${VAR}` expansion (e.g., a skill that wants to display "you're working in connection X" in prose).

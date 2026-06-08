@@ -60,13 +60,33 @@ Populates Q6 default. The user almost always wants a different value (e.g., "Jan
 
 **If the ACE doesn't know:**
 
-> Run `snow connection list` in your terminal. The output shows configured connections. Pick the one tied to your demo account. If you don't have one configured yet, run `snow connection add` and come back.
+> Run `snow connection list` in your terminal. The output shows configured connections. Pick your primary work connection (e.g. `snowhouse` for internal Snowflake tooling). If you don't have one configured yet, run `snow connection add` and come back.
 
 **Common pitfalls:**
 - Connection names in Snowflake's CLI are case-sensitive
 - A connection name and an account identifier are different things — the connection name is your local alias, the account identifier is the Snowflake-side name
 
-### Q2: Snowflake username
+### Q2: Demo connection name
+
+**Asked:** "What's the name of your demo Snowflake connection?"
+
+**Drives:** `ACE_DEMO_CONN` env var. All demo-ops skills use this when running SQL, deploying assets, or creating DDL in your personal demo org.
+
+**Format:** A string matching a connection name in `~/.snowflake/config.toml`. Case-sensitive.
+
+**Default:** auto-detected as the second entry in `snow connection list` (after the primary work connection); or no default if only one connection exists.
+
+**If the ACE doesn't have a demo connection:**
+
+> Run `snow connection add` to configure one, then re-run `/ace-setup`. You can also skip this for now — the demo-ops skills will fall back to asking each session.
+
+**Can this be skipped?** Yes — if the ACE does only read-only work and never builds demos. Type "skip" to leave `ACE_DEMO_CONN` unset.
+
+**Common pitfalls:**
+- Don't use the same value as Q1. If you only have one connection, you likely need to add a second one pointing at your demo org.
+- The demo connection account and the primary work connection account are different Snowflake accounts — the primary is typically `snowhouse` (Snowflake internal), the demo is your personal/SE-owned Snowflake account.
+
+### Q2 (former): Snowflake username
 
 **Asked:** "What's your Snowflake username?"
 
@@ -219,7 +239,7 @@ Populates Q6 default. The user almost always wants a different value (e.g., "Jan
 
 After all questions are answered, the skill writes `/memories/ace-setup.md` using the canonical format in [setup-template.md](setup-template.md).
 
-The memory file is the source of truth for everything except `ACE_DEFAULT_CONN` and `ACE_USER_HANDLE`, which are also (and primarily) read from CCD profile envVars at runtime.
+The memory file is the source of truth for everything except `ACE_DEFAULT_CONN`, `ACE_DEMO_CONN`, and `ACE_USER_HANDLE`, which are also (and primarily) read from CCD profile envVars at runtime.
 
 ---
 
@@ -230,7 +250,7 @@ When the skill is invoked and `/memories/ace-setup.md` already exists:
 1. Read the file
 2. Display current values in a table
 3. Ask which fields to update via `ask_user_question` with options:
-   - "Update all fields" (re-asks all 8)
+   - "Update all fields" (re-asks all 9)
    - "Update specific fields" (asks WHICH fields, then asks only those)
    - "Update notes only" (skips questions, opens Notes section for editing)
    - "Cancel" (exits without changes)
@@ -245,7 +265,7 @@ When the skill is invoked and `/memories/ace-setup.md` already exists:
 | Situation | Behavior |
 |---|---|
 | User cancels mid-flow | Don't write anything to memory. Existing file (if any) untouched. |
-| User says "skip" on a non-skippable question (Q1 or Q2) | Politely refuse: explain that connection name and username are required for the profile to function. Re-ask. |
+| User says "skip" on a non-skippable question (Q1 or Q3) | Politely refuse: explain that connection name and username are required for the profile to function. Re-ask. (Q2 demo connection IS skippable.) |
 | Auto-detect command fails | The question has no default. Ask without one. Don't error. |
 | `snow` CLI not installed | Skip auto-detection for Q1, Q2, Q4, Q5. Ask manually. |
 | `gh` CLI not installed or not authed | Skip auto-detection for Q7. Ask manually. |
@@ -269,6 +289,7 @@ When the skill is invoked and `/memories/ace-setup.md` already exists:
 | Value | How another skill reads it |
 |---|---|
 | Connection name | `os.environ.get("ACE_DEFAULT_CONN")` (Python) or `$ACE_DEFAULT_CONN` (shell) |
+| Demo connection name | `os.environ.get("ACE_DEMO_CONN")` (Python) or `$ACE_DEMO_CONN` (shell) |
 | Username | `os.environ.get("ACE_USER_HANDLE")` |
 | Demo account, region, DDL warehouse, display name, GitHub handle/org | Read `/memories/ace-setup.md` and parse the relevant section |
 

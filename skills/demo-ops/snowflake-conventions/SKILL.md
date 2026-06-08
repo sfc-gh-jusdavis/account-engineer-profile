@@ -119,7 +119,7 @@ WHERE TAG_NAME = 'DEMO_CREATED'
 
 ## Pre-build checklist
 
-- [ ] Connection confirmed (default `${ACE_DEFAULT_CONN}`)
+- [ ] Connection confirmed (default `${ACE_DEMO_CONN}`)
 - [ ] Role confirmed
 - [ ] Writable warehouse selected for DDL/DML
 - [ ] DB/schema name follows convention
