@@ -20,9 +20,15 @@ This directory contains the CCD skills the Account Engineer profile registers.
 |---|---|
 | `demo-ops/` | Parent dispatcher for the demo bundle. Routes to 6 sub-skills covering the full demo lifecycle (scope, build, rehearse, present, teardown). See [demo-ops/README.md](demo-ops/README.md). Sub-skills: `demo-ops:coordinator`, `demo-ops:principles`, `demo-ops:workflow`, `demo-ops:synthetic-data`, `demo-ops:snowflake-conventions`, `demo-ops:deploy`. |
 
+## v0.4.0 Skills (Phase 4 kickoff — new skills built sanitized from the start)
+
+| Skill | Purpose |
+|---|---|
+| `customer-context/` | Initialize and maintain `context.md` for a customer activation project. Parent dispatcher for three sub-skills covering the full context lifecycle. Sub-skills: `customer-context:init`, `customer-context:tech-stack`, `customer-context:chat-update`. See [customer-context/SKILL.md](customer-context/SKILL.md). |
+
 ## Migration Roadmap
 
-### Phase 3: Personal-Data Skills (require sanitization) — PLANNED
+### Phase 4: Personal-Data Skills (require sanitization) — IN PROGRESS
 
 These skills currently contain hardcoded connection names, user emails, gdrive paths, or account references. Each must be parameterized before migration. Sanitization pattern: replace personal values with `${ACE_*}` placeholder references that resolve via `/memories/ace-setup.md` (populated by the `ace-setup` skill) or profile envVars.
 

@@ -43,9 +43,19 @@ One PR per skill. Each PR:
 
 Added the `demo-ops` skill bundle for building lightweight, non-repo Snowflake demos. Parent skill plus 6 sub-skills (`coordinator`, `principles`, `workflow`, `synthetic-data`, `snowflake-conventions`, `deploy`). All examples sanitized to generic placeholders; no personal or internal references. See [skills/demo-ops/README.md](../skills/demo-ops/README.md).
 
-## Phase 4: Personal-Data Skill Migration (v0.4.0)
+## Phase 4: Personal-Data Skill Migration (v0.4.0) — IN PROGRESS
 
-Higher-risk: each skill has hardcoded personal info that must be parameterized.
+Phase 4 covers two tracks:
+1. **New skills** built sanitized from the start (no personal references to scrub)
+2. **Migrated skills** — existing personal skills parameterized for the public repo
+
+### New Skills (already sanitized)
+
+| Skill | Status |
+|---|---|
+| `customer-context` | Done — `customer-context:init`, `customer-context:tech-stack`, `customer-context:chat-update` |
+
+### Skills to Migrate (hardcoded personal info requiring parameterization)
 
 | Skill | Sanitization |
 |---|---|
@@ -62,7 +72,7 @@ Higher-risk: each skill has hardcoded personal info that must be parameterized.
 | `use-case-data` | Replace personal use case ids |
 | `use-case-update` | Replace personal use case ids |
 
-Per-skill recipe:
+Per-skill migration recipe:
 1. Branch in profile repo
 2. Copy + sanitize (replace personal values with `${ACE_DEFAULT_CONN}`, `${ACE_USER_HANDLE}`)
 3. Document required env vars in skill's SKILL.md
