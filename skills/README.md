@@ -26,6 +26,12 @@ This directory contains the CCD skills the Account Engineer profile registers.
 |---|---|
 | `customer-context/` | Initialize and maintain `context.md` for a customer activation project. Parent dispatcher for three sub-skills covering the full context lifecycle. Sub-skills: `customer-context:init`, `customer-context:tech-stack`, `customer-context:chat-update`. See [customer-context/SKILL.md](customer-context/SKILL.md). |
 
+## v0.5.0 Skills (profile maintenance)
+
+| Skill | Purpose |
+|---|---|
+| `refresh-profile/` | Refresh the profile so CoCo picks up new/updated skills pushed to GitHub. Runs `ALTER GIT REPOSITORY ACCOUNT_ENGINEERING.COCO.AE_PROFILE_REPO FETCH` on `${ACE_DEFAULT_CONN}`, lists the stage, and prompts a CoCo restart. Trigger: "refresh my ace profile". See [refresh-profile/SKILL.md](refresh-profile/SKILL.md). |
+
 ## Migration Roadmap
 
 ### Phase 4: Personal-Data Skills (require sanitization) — IN PROGRESS
